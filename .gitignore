@@ -1,11 +1,3 @@
-bin
-include
-lib
-local
-share
-pip-selfcheck.json
-
 .ipynb_checkpoints
-
 data
 
