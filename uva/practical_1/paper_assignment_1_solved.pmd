@@ -44,3 +44,49 @@ documentclass: amsdlaj
 	\end{equation}
 \end{solution}
 
+
+# Prelude
+
+\begin{solution}
+	Starting again from the output layer, we have that:
+	\begin{equation}
+		\begin{split}
+			\frac{\partial \mathcal{L}}{\partial s_N} = \delta_N
+				&= (y_{out}-y_{gt}) \cdot f^\prime(s_N)
+		\end{split}
+	\end{equation}
+	and
+	\begin{equation}
+		\begin{split}
+			\frac{\partial \mathcal{L}}{\partial W_N} = \Delta W_N
+				&= (y_{out}-y_{gt}) \cdot f^\prime(s_N) \cdot z_{N-1}
+		\end{split}
+	\end{equation}
+	so we can rewrite it as
+	\begin{equation}
+		\begin{split}
+			\Delta W_N &= \delta_N z_{N-1}.
+		\end{split}
+	\end{equation}
+	For hidden layers instead we have:
+	\begin{equation}
+		\begin{split}
+			\frac{\partial \mathcal{L}}{\partial s_k} = \delta_k
+				&= (y_{out}-y_{gt}) \cdot \prod_{i=k+1}^N W_i f^\prime(s_i) \cdot f^\prime(s_k)
+		\end{split}
+	\end{equation}
+	and
+	\begin{equation}
+		\begin{split}
+			\frac{\partial \mathcal{L}}{\partial W_k} = \Delta W_k
+				&= (y_{out}-y_{gt}) \cdot \prod_{i=k+1}^N W_i f^\prime(s_i) \cdot f^\prime(s_k) \cdot z_{k-1}
+		\end{split}
+	\end{equation}
+	we can then rewrite it as
+	\begin{equation}
+		\begin{split}
+			\Delta W_k &= \delta_k z_{k-1}.
+		\end{split}
+	\end{equation}
+\end{solution}
+
