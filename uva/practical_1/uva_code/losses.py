@@ -1,6 +1,8 @@
+import numpy as np
+import scipy.sparse
 """
 This module implements various losses for the network.
-You should fill in code into indicated sections. 
+You should fill in code into indicated sections.
 """
 
 def HingeLoss(x, y):
@@ -9,7 +11,7 @@ def HingeLoss(x, y):
 
   Args:
     x: Input data.
-    y: Labels of data. 
+    y: Labels of data.
 
   Returns:
     loss: Scalar hinge loss.
@@ -35,12 +37,12 @@ def CrossEntropyLoss(x, y):
 
   Args:
     x: Input data.
-    y: Labels of data. 
+    y: Labels of data.
 
   Returns:
     loss: Scalar cross entropy loss.
     dx: Gradient of the loss with the respect to the input x.
-  
+
   """
   ########################################################################################
   # TODO:                                                                                #
@@ -62,7 +64,7 @@ def SoftMaxLoss(x, y):
 
   Args:
     x: Input data.
-    y: Labels of data. 
+    y: Labels of data.
 
   Returns:
     loss: Scalar softmax loss.
@@ -70,15 +72,20 @@ def SoftMaxLoss(x, y):
 
   """
   ########################################################################################
-  # TODO:                                                                                #
   # Compute softmax loss on input x and y and store it in loss variable. Compute gradient#
   # of the loss with respect to the input and store it in dx variable.                   #
   ########################################################################################
-  dx = None
-  loss = None
+  num_samples = x.shape[0]
+  sparse_arg = (np.ones(num_samples), y, np.arange(num_samples+1))
+  identity_labels = scipy.sparse.csr_matrix(sparse_arg).todense()
+
+  normalizers = 1 / np.exp(x).sum(axis=1).reshape((num_samples, 1))
+  probs = np.multiply(np.exp(x), normalizers)
+
+  dx = -np.log(probs)
+  loss = -np.multiply(identity_labels, np.log(probs)).sum()
   ########################################################################################
   #                              END OF YOUR CODE                                        #
   ########################################################################################
 
   return loss, dx
-
