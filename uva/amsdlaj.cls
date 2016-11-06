@@ -18,3 +18,5 @@
   {\begin{trivlist} \item {\bf Solution:~~} \sf}
   {\qed\end{trivlist}}
 
+
+\newcommand{\relu}{ReLU}
